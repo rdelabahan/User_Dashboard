@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <div>
+        <h1 id='test'>Test App</h1>
+        <h3 id='home'>Dashboard</h3>
+        <h4 id='prof'><a href='/users/edit'>Profile</a></h4>
+        <a href='/logout' id='sign'>Log out</a> 
+    </div>
+    <hr><br><br>
+
+    <h1>Manage Users</h1><br>
+    <a href='/users/new'>Add new</a><br><br>
+
+    {% if messages %}
+    <ul id='error' class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}<br><br>
+    
+
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created_at</th>
+            <th>User_level</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{user.id}}</td>
+            <td><a href='/users/show/{{user.id}}'>{{user.first_name}} {{user.last_name}}</a></td>
+            <td>{{user.email}}</td>
+            <td>{{user.created_at | date:'M jS, Y'}}</td>
+            {% if user.level_admin == 9 %}
+            <td>Admin</td>
+            {% else %}
+            <td>Normal</td>
+            {% endif %}
+            <td><a href='/users/edit/{{user.id}}'>edit</a> | <a href='/{{user.id}}/delete_user' onclick='myFunction()'>remove</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        function myFunction() {
+        if (confirm("Are you sure you want to delete this user?")) {
+            } 
+        else {
+            event.preventDefault();
+        }
+    }
+
+    </script>
+</body>
+</html>

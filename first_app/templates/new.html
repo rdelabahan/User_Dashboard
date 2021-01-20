@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <div>
+        <h1 id='test'>Test App</h1>
+        <h4 id='home'>Dashboard</h4>
+        <h4 id='profile'>Profile</h4>
+        <a href='/logout' id='sign'>Log out</a> 
+    </div>
+    <hr><br><br>
+
+    <h1>Add a new user</h1>
+    <a href='/dashboard/admin'>Return to Dashboard</a><br><br>
+
+
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}<br>
+    <form action='/add_new_user' method='POST'>
+    {% csrf_token %}
+        <p>Email Address: 
+            <input type='input' name='email'>
+        </p>
+        <p>First Name:
+            <input type='input' name='fname'>
+        </p>
+        <p>Last Name:
+            <input type='input' name='lname'>
+        </p>
+        <p>Password:
+            <input type='password' name='pw'>
+        </p>
+        <p>Confirm Password:
+            <input type='password' name='confirm_pw'>
+        </p>
+        <input type='submit' value='register'>
+    </form>
+
+
+</body>
+</html>

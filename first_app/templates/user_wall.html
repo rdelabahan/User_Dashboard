@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    {% load static %}
+    {% load humanize %}
+    <link rel='stylesheet' href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <div>
+        <div>
+            <h1 id='test'>Test App</h1>
+            {% if request.session.user_id == 1 %}
+            <h4 id='home'><a href='/dashboard/admin'>Dashboard</a></h3>
+            {% else %}
+            <h4 id='home'><a href='/dashboard'>Dashboard</a></h3>
+            {% endif %}
+            <h4 id='prof'><a href='/users/edit'>Profile</a></h4>
+            <a href='/logout' id='sign'>Log out</a> 
+        </div>
+        <hr><br><br>
+
+        <h2>{{user.first_name}} {{user.last_name}}</h2><br>
+        <p>Registered at: {{user.created_at | date:'M jS, Y'}}</p><br>
+        <p>User ID: {{user.id}}</p><br>
+        <p>Email address: {{user.email}}</p><br>
+        <p>Description: {{user.description}}</p><br><br>
+
+        {% if request.session.user_id != user.id %}
+        <form action='/users/post_message/{{user.id}}' method='POST'>
+        {% csrf_token %}
+            <h2>Leave a Message for {{user.first_name}}</h2>
+            <textarea name='message' rows='6'  cols='80'></textarea>
+            <input type='submit' value='Post'>
+        </form><br><br>
+        {% endif %}
+
+        
+        {% for message in user.wall_messages.all %}
+        <h4>{{message.user.first_name}} {{message.user.last_name}} wrote                ({{message.created_at | naturaltime }})</h4>
+        <p>{{message.message}}</p>
+        <div id='comment'>
+            {% for comment in message.comments.all %}
+            <h4>{{comment.user.first_name}} {{comment.user.last_name}}                   ({{comment.created_at | naturaltime }})</h4>
+            <p>{{comment.comment}}</p><br>
+            {% endfor %}
+            <form action='/users/post_comment/{{message.id}}/{{user.id}}' method='POST'>
+            {% csrf_token %}
+                <textarea name='comment' rows='4' cols='45'></textarea>
+                <input type='submit' value='Post comment'>
+            </form>
+        </div><br><br><br>
+        {% endfor %}
+
+        
+</body>
+</html>

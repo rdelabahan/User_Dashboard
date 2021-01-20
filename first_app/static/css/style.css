@@ -1,0 +1,91 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+#test {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#home {
+    margin-left: 55px; 
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#sign{
+    margin-left: 700px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#main {
+    margin-top: 55px;
+    background-color: rgb(185, 181, 181);
+    width: 500px;
+    padding: 5px; 
+    margin-left: 350px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    width: 900px;
+    margin-left: 190px;
+}
+
+#profile {
+    margin-left: 50px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#info {
+    width: 300px;
+    border: 1px solid black;
+    margin-left: 25px;
+    margin-top: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#edit {
+    margin-left: 25px;
+}
+
+#save {
+    margin-top: 5px;
+    margin-left: 250px;
+    display: block;
+}
+
+#return {
+    margin-left: 25px;
+}
+
+#pw {
+    margin-left: 205px;
+    display: inline-block;
+    border: 1px solid black;
+    vertical-align: top;
+    margin-top: 25px;
+}
+
+#update {
+    margin-left: 175px;
+}
+
+#error {
+    margin-left: 25px;
+}
+
+#prof {
+    display: inline-block;
+    margin-left: 25px;
+    vertical-align: middle;
+}
+
+#comment {
+    margin-left: 35px;
+    margin-top: 25px;
+}

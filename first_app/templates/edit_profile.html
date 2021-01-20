@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <div>
+        <h1 id='test'>Test App</h1>
+        {% if request.session.user_id == 1 %}
+        <h4 id='home'><a href='/dashboard/admin'>Dashboard</a></h3>
+        {% else %}
+        <h4 id='home'><a href='/dashboard'>Dashboard</a></h3>
+        {% endif %}
+        <h3 id='prof'>Profile</h4>
+        <a href='/logout' id='sign'>Log out</a> 
+    </div>
+    <hr><br><br>
+
+    <h1>Edit Profile</h1><br>
+
+    {% if messages %}
+    <ul id='error' class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div id='info'>
+        <h2>Edit Information</h2>
+        <form action='/users/update' method='POST'>
+        {% csrf_token %}
+            <p>Email address:
+                <input type='text' name='email' value='{{user.email}}'>
+            </p>
+            <p> First_name:
+                <input type='text' name='fname' value='{{user.first_name}}'>
+            </p>
+            <p> Last_name:
+                <input type='text' name='lname' value='{{user.last_name}}'>
+            </p>
+            <input type='submit' id='save' value='Save'>
+    </div>
+        </form>
+
+    <div id='pw'>
+        <h2>Change Password</h2>
+        <form action='/user/change_pw' method='POST'>
+        {% csrf_token %}
+            <p>Password:
+                <input type='password' name='pw'>
+            </p>
+            <p>Confirm Password:
+                <input type='password' name='confirm_pw'>
+            </p><br>
+            <input type='submit' id='update' value='Update Password'>
+        </form>
+    </div><br><br>
+
+    <div id='desc'>
+        <h2>Edit description</h2>
+        <form action='/user/update_description' method='POST'>
+        {% csrf_token %}
+            <textarea name='description' rows='4' cols='50'>{{user.description}}</textarea>
+            <input type='submit' value='Save'>
+        </form>
+    </div>
+
+    
+
+</body>
+</html>

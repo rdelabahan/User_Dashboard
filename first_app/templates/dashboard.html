@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <div>
+        <h1 id='test'>Test App</h1>
+        <h3 id='home'>Dashboard</h3>
+        <h4 id='prof'><a href='/users/edit'>Profile</a></h4>
+        <a href='/logout' id='sign'>Log out</a> 
+    </div>
+    <hr><br><br>
+
+    <h1>All Users</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created_at</th>
+            <th>User_level</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{user.id}}</td>
+            <td><a href='/users/show/{{user.id}}'>{{user.first_name}} {{user.last_name}}</a></td>
+            <td>{{user.email}}</td>
+            <td>{{user.created_at | date:'M jS, Y'}}</td>
+            {% if user.level_admin == 9 %}
+            <td>Admin</td>
+            {% else %}
+            <td>Normal</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>
